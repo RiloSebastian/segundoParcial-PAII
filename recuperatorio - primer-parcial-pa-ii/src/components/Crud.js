@@ -57,7 +57,7 @@ const Crud = () => {
       body: JSON.stringify(nuevaMascota),
     })
       .then((res) => {
-        if (res.status === 401) {
+        if (res.status !== 200) {
           throw new Error();
         } else {
           return res.json();
@@ -85,7 +85,7 @@ const Crud = () => {
       body: JSON.stringify(mascotaEditada),
     })
       .then((res) => {
-        if (res.status === 401) {
+        if (res.status !== 200) {
           throw new Error();
         } else {
           return res.json();
@@ -110,32 +110,33 @@ const Crud = () => {
       window.confirm(
         "Confirma la eliminacion de la mascota '" + idMascota + "'?"
       )
-    )
+    ) {
       setflag(false);
-    fetch(`${URL}/${idMascota}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("token")).token
-        }`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          throw new Error();
-        } else {
-          return res.json();
-        }
+      fetch(`${URL}/${idMascota}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("token")).token
+          }`,
+        },
       })
-      .then((mascotaEditada) => {
-        setmascota((mascotas) => {
-          return mascotas.filter((mascota) => mascota.id !== idMascota);
-        });
-      })
-      .catch(() => {
-        solicitarLogin();
-      })
-      .finally(() => setflag(true));
+        .then((res) => {
+          if (res.status === 400) {
+            throw new Error();
+          } else {
+            return res.json();
+          }
+        })
+        .then((mascotaBorrada) => {
+          setmascota((mascotas) => {
+            return mascotas.filter((mascota) => mascota.id !== idMascota);
+          });
+        })
+        .catch(() => {
+          solicitarLogin();
+        })
+        .finally(() => setflag(true));
+    }
   };
 
   const solicitarLogin = () => {

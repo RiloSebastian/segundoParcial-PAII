@@ -7,7 +7,7 @@ const {verifyToken} = require('../utils/middlewares');
 tiposRouter.get("/", (req, res, next) => {
   Tipo.find({})
     .then((tipos) => {
-      res.json(tipos);
+      res.status(200).json(tipos);
     })
     .catch((err) => {
       next(err);
@@ -20,7 +20,7 @@ tiposRouter.get("/:id", (req, res, next) => {
   Tipo.findById(id)
     .then((tipo) => {
       if (tipo) {
-        res.json(tipo);
+        res.status(200).json(tipo);
       }
       res.status(400).end();
     })
@@ -35,7 +35,7 @@ tiposRouter.delete("/:id",verifyToken, (req, res, next) => {
   Tipo.findByIdAndRemove(id)
     .then((result) => {
       if (result) {
-        res.status(204).end();
+        res.status(200).end();
       }
       res.status(400).end();
     })
@@ -56,7 +56,7 @@ tiposRouter.post("/",verifyToken, (req, res, next) => {
       .save()
       .then((tipo) => {
         if (tipo) {
-          res.status(201).json(tipo).end();
+          res.status(200).json(tipo).end();
         }
         res.status(400).end();
       })
@@ -76,7 +76,7 @@ tiposRouter.put("/:id",verifyToken, (req, res, next) => {
   Tipo.findByIdAndUpdate(id, infotipo, { new: true })
     .then((tipo) => {
       if (tipo) {
-        res.json(tipo);
+        res.status(200).json(tipo);
       }
       res.status(400).end();
     })

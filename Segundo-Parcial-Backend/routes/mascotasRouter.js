@@ -20,7 +20,7 @@ mascotasRouter.get("/:id", (req, res, next) => {
   Mascota.findById(id)
     .then((mascota) => {
       if (mascota) {
-        res.json(mascota);
+        res.status(200).json(mascota);
       }
       res.status(400).end();
     })
@@ -35,7 +35,7 @@ mascotasRouter.delete("/:id", verifyToken, (req, res, next) => {
   Mascota.findByIdAndRemove(id)
     .then((result) => {
       if (result) {
-        res.status(204).end();
+        res.status(200).json(result).end();
       }
       res.status(400).end();
     })
@@ -60,7 +60,7 @@ mascotasRouter.post("/", verifyToken, (req, res, next) => {
       .save()
       .then((mascota) => {
         if (mascota) {
-          res.json(mascota).end();
+          res.status(200).json(mascota).end();
         }
         res.status(400).end();
       })
@@ -80,7 +80,7 @@ mascotasRouter.put("/:id", verifyToken, (req, res, next) => {
   Mascota.findByIdAndUpdate(id, infomascota, { new: true })
     .then((mascota) => {
       if (mascota) {
-        res.json(mascota);
+        res.status(200).json(mascota);
       }
       res.status(400).end();
     })

@@ -1,22 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Titulo from "./Titulo";
 
-const Header = () => {
-
+const Header = ({ user, setUser }) => {
   useEffect(() => {
-    console.log("efecto")
-    if(localStorage.getItem("token") !== null){
-      setFlagSesion(true);
-    } else{
-      setFlagSesion(false);
-    }
-  },[])
+    setFlagSesion(user);
+  }, [user]);
 
   const history = useHistory();
   const [flagSesion, setFlagSesion] = useState(false);
+
   const logOut = () => {
     localStorage.removeItem("token");
+    setUser(false);
     history.push("/iniciar-sesion");
   };
 
@@ -44,7 +40,12 @@ const Header = () => {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
             {flagSesion ? (
               <li className="nav-link">
-                <button onClick={logOut} style={{background: "none", border: "none" }}>Cerrar Sesion</button>
+                <button
+                  onClick={logOut}
+                  style={{ background: "none", border: "none" }}
+                >
+                  Cerrar Sesion
+                </button>
               </li>
             ) : (
               <>

@@ -34,17 +34,16 @@ const Register = () => {
       body: JSON.stringify(form),
     })
       .then((res) => {
-        if (res.status === 401) {
-            throw new Error();
-          } else {
-            return res.json();
-          }  
+        if(res.status !== 200){
+          throw new Error("Este usuario ya existe")
+        }
+        return res.json();
       })
       .then((data) => {
-        console.console.log(data);
+        console.log(data);
         history.push("/iniciar-sesion");
       }).catch(err =>{
-          alert("Ha ocurrido un error. cambie el nombre de usuario")
+        alert(err.message);
       });
   };
 

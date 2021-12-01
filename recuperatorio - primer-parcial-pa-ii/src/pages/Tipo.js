@@ -26,7 +26,7 @@ const Tipo = () => {
     };
 
     getMascotas(URL);
-  }, []);
+  }, [descripcion]);
 
   const renderResults = () => {
     return mascotas.length ? (

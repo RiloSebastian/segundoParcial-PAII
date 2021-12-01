@@ -12,13 +12,13 @@ const handlerError = (error, req, res, next) => {
   } else if (error.name === "SyntaxError") {
     res.status(400).json({ error: "Error de sintaxis" });
   } else if (error.name === "ReferenceError") {
-    res.status(401).json({ error: error.name, message: error.message });
+    res.status(400).json({ error: error.name, message: error.message });
   } else if (error.name === "MongoError") {
-    res.status(401).json({ error: error.name, message: error.message });
+    res.status(400).json({ error: error.name, message: error.message });
   } else if (error.name === "ValidationError") {
     res.status(400).json({ error: error.name, message: error.message });
   } else if (error.name === "ErrorToken") {
-    res.status(401).json({ error: error.name, message: error.message });
+    res.status(400).json({ error: error.name, message: error.message });
   } else if (error.name === "JsonWebTokenError") {
     res.status(400).json({ error: error.name, message: error.message });
   } else if (error.name === "TokenExpiredError") {

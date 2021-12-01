@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../App.css";
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const history = useHistory();
   const URL = "http://localhost:5500/api/user/login";
   const [form, setform] = useState({
@@ -35,10 +35,23 @@ const Login = () => {
       },
       body: JSON.stringify(form),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error("Este usuario no existe");
+        } else {
+          return res.json();
+        }
+      })
       .then((data) => {
         localStorage.setItem("token", JSON.stringify(data));
+        setUser(true);
         history.push("/");
+      })
+      .catch((err) => {
+        alert(err.message);
+      })
+      .finally(() => {
+        setform({ username: "", password: "" });
       });
   };
 
@@ -52,7 +65,7 @@ const Login = () => {
             type="text"
             className="form-control"
             id="floatingInput"
-            placeholder="usuario1_ejemplo"
+            placeholder="usuario1"
             name="username"
             autoComplete="off"
             onChange={handleChange}
@@ -66,7 +79,7 @@ const Login = () => {
             className="form-control"
             id="floatingPassword"
             name="password"
-            placeholder="Contraseña"
+            placeholder="1234"
             autoComplete="off"
             onChange={handleChange}
             value={password}

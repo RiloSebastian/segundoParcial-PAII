@@ -19,27 +19,36 @@ usersRouter.post("/login", async (req, res, next) => {
       id: user._id,
     };
     const token = await jwt.sign(userToken, SECRET);
-    res.status(200).json({
-      token
-    });
+    res
+      .status(200)
+      .json({
+        token,
+      })
+      .end();
   } catch (error) {
     next(error);
   }
 });
 
-usersRouter.post("/registro", async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
-    const passwordHash = await bcrypt.hash(password, 10);
-    const newUser = new User({
-      username,
-      passwordHash,
+usersRouter.post("/registro", (req, res, next) => {
+  const { username, password } = req.body;
+  bcrypt
+    .hash(password, 10)
+    .then((hash) => {
+      const passwordHash = hash;
+      const newUser = new User({
+        username,
+        passwordHash,
+      });
+      return newUser.save();
+    })
+    .then((userSaved) => {
+      console.log(userSaved);
+      res.status(200).json(userSaved).end();
+    })
+    .catch((error) => {
+      next(error);
     });
-    const userSaved = await newUser.save();
-    res.status(201).json(userSaved);
-  } catch (error) {
-    next(error);
-  }
 });
 
 module.exports = usersRouter;
