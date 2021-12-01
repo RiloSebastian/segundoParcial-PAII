@@ -1,0 +1,66 @@
+{
+  "tipos": [
+    {
+      "id": 1,
+      "descripcion": "Perro"
+    },
+    {
+      "id": 2,
+      "descripcion": "Gato"
+    },
+    {
+      "id": 3,
+      "descripcion": "Reptil"
+    },
+    {
+      "id": 4,
+      "descripcion": "Pez"
+    },
+    {
+      "id": 5,
+      "descripcion": "Roedor"
+    }
+  ],
+  "mascotas": [
+    {
+      "id": 1,
+      "nombre": "Bobby",
+      "edad": 12,
+      "tipo": "Perro",
+      "vacunado": true,
+      "observaciones": "Bobby se porta muy bien esta contento siempre"
+    },
+    {
+      "id": 2,
+      "nombre": "Fido",
+      "edad": 3,
+      "tipo": "Gato",
+      "vacunado": true,
+      "observaciones": "Es un gato muy peludo"
+    },
+    {
+      "id": 3,
+      "nombre": "Lolo",
+      "edad": 2,
+      "tipo": "Roedor",
+      "vacunado": false,
+      "observaciones": "Cuidado que muerde"
+    },
+    {
+      "id": 4,
+      "nombre": "Colita",
+      "edad": 6,
+      "tipo": "Perro",
+      "vacunado": true,
+      "observaciones": "Mea por todos lados"
+    },
+    {
+      "id": "3Q36gE6d2xs1y4SfSdELMJ",
+      "nombre": "algo",
+      "edad": 4,
+      "observaciones": "algo es un nombre muy raro para un pez muy aburrido",
+      "tipo": "Pez",
+      "vacunado": true
+    }
+  ]
+}
